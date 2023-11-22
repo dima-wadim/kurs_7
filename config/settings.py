@@ -40,8 +40,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
-    'corsheaders',
     'drf_yasg',
+    'corsheaders',
     'django_celery_beat',
 
     'users',
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
+        'NAME': os.getenv('DB_NAME_kurs_7'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD')
     }
@@ -141,10 +141,10 @@ REST_FRAMEWORK = {
     # ]
 }
 
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER')  # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # Например, Redis, который по умолчанию работает на порту 6379
 
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = os.getenv('CELERY_BROKER')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = os.getenv('TIME_ZONE')
@@ -170,3 +170,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+BOT_API = os.getenv('BOT_API')
+BOT_API_KEY = os.getenv('BOT_API_KEY')
+CHAT_ID = os.getenv('CHAT_ID')

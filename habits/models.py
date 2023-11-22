@@ -1,8 +1,8 @@
 
 # Create your models here.
 from django.db import models
-from django_celery_beat.models import PeriodicTask
-
+#from django_celery_beat.models import PeriodicTask
+#from django.conf import settings
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
@@ -29,6 +29,9 @@ class Habit(models.Model):
     award = models.CharField(max_length=350, verbose_name='вознаграждение', **NULLABLE)
     time_to_complete = models.PositiveIntegerField(verbose_name='время на выполнение')
     is_published = models.BooleanField(default=False, verbose_name='признак публикации')
+
+    def __str__(self):
+        return f'{self.action} в {self.time} в {self.place}'
 
     class Meta:
         verbose_name = 'полезная привычка'
