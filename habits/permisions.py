@@ -2,14 +2,18 @@ from rest_framework.permissions import BasePermission
 
 
 class IsOwner(BasePermission):
-    """
-    Проверка на то, является пользователь создателем привычки
-    """
+    message = 'Вы не являетесь владельцем'
+
     def has_object_permission(self, request, view, obj):
-        return request.user == obj.user
+        if request.user == obj.owner or request.user.is_staff:
+            return True
+        return False
 
 
-class IsPublic(BasePermission):
-    """Проверка - является ли привычка публичной"""
-    def has_object_permission(self, request, view, obj):
-        return obj.is_public
+class IsModerator(BasePermission):
+    message = 'Вы не являетесь модератором'
+
+    def has_permission(self, request, view):
+        if request.user.is_staff:
+            return True
+        return False
