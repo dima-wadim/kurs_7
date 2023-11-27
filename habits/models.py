@@ -1,8 +1,8 @@
 
 # Create your models here.
 from django.db import models
-#from django_celery_beat.models import PeriodicTask
-#from django.conf import settings
+# from django_celery_beat.models import PeriodicTask
+# from django.conf import settings
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}

@@ -1,12 +1,9 @@
 from rest_framework.exceptions import ValidationError
 
-from habits.models import Habit
-
-
 class HabitTimeToCompleteValidator:
-
-    """Валидатор для проверки времени выполнения привычки"""
-
+    """
+    Валидатор для проверки времени выполнения привычки
+    """
     def __init__(self, field):
         self.field = field
 
