@@ -18,7 +18,7 @@ class HabitTestCase(APITestCase):
             first_name='Ivan',
             last_name='Ivanov',
             phone='88005553535',
-            city='Moscow'
+
         )
 
         cls.user_2 = User.objects.create(
@@ -27,7 +27,7 @@ class HabitTestCase(APITestCase):
             first_name='Petr',
             last_name='Petrov',
             phone='88009007001',
-            city='Moscow'
+
         )
 
         cls.nice_habit = Habit.objects.create(
