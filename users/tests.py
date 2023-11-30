@@ -52,8 +52,8 @@ class UserTestCase(APITestCase):
             email='ivan@ivanov.com',
             first_name='Ivan',
             last_name='Ivanov',
-            phone='88005553535',
-            city='Moscow'
+            phone='88005553535'
+
         )
 
         cls.data = {
@@ -64,7 +64,6 @@ class UserTestCase(APITestCase):
             "is_staff": False,
             "is_active": True,
             "phone": "88005553535",
-            "city": "St.Petersburg",
             "email": "ivan@ivanov.com"
         }
 
@@ -90,15 +89,13 @@ class UserTestCase(APITestCase):
                 "id": self.user.id,
                 "last_login": None,
                 "is_superuser": False,
-                "chat_id": None,
-                "telegram_username": None,
+                "chat_id": "",
                 "first_name": "Ivan",
                 "last_name": "Ivanov",
                 "is_staff": False,
                 "is_active": True,
                 "date_joined": (now() + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"),
                 "phone": "88005553535",
-                "city": "Moscow",
                 "avatar": None,
                 "email": "ivan@ivanov.com",
                 "groups": [],
@@ -129,15 +126,13 @@ class UserTestCase(APITestCase):
                 "id": self.user.id,
                 "last_login": None,
                 "is_superuser": False,
-                "chat_id": None,
-                "telegram_username": None,
+                "chat_id": "",
                 "first_name": "Ivan",
                 "last_name": "Ivanov",
                 "is_staff": False,
                 "is_active": True,
                 "date_joined": (now() + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"),
                 "phone": "88005553535",
-                "city": "St.Petersburg",
                 "avatar": None,
                 "email": "ivan@ivanov.com",
                 "groups": [],
