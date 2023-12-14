@@ -18,6 +18,7 @@ PERIOD = [
 
 
 class Habit(models.Model):
+    objects = None
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
     place = models.CharField(max_length=150, verbose_name='место')
     time = models.TimeField(verbose_name='время')
@@ -29,6 +30,10 @@ class Habit(models.Model):
     award = models.CharField(max_length=350, verbose_name='вознаграждение', **NULLABLE)
     time_to_complete = models.PositiveIntegerField(verbose_name='время на выполнение')
     is_published = models.BooleanField(default=False, verbose_name='признак публикации')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs)
+        self.period = None
 
     def __str__(self):
         return f'{self.action} в {self.time} в {self.place}'
