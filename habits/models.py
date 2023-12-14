@@ -1,43 +1,46 @@
-
-# Create your models here.
 from django.db import models
-# from django_celery_beat.models import PeriodicTask
-# from django.conf import settings
-from users.models import User
+
+from config import settings
 
 NULLABLE = {'blank': True, 'null': True}
-PERIOD = [
-    ('1', '1 раз в день'),
-    ('2', '1 раз в 2 дня'),
-    ('3', '1 раз в 3 дня'),
-    ('4', '1 раз в 4 дня'),
-    ('5', '1 раз в 5 дней'),
-    ('6', '1 раз в 6 дней'),
-    ('7', '1 раз в 7 дней')
-]
 
+PERIODICITY_CHOICES = (
+    ('1', 'раз в 7 дней'),
+    ('2', '2 раза в 7 дней'),
+    ('3', '3 раза в 7 дней'),
+    ('4', '4 раза в 7 дней'),
+    ('5', '5 раз в 7 дней'),
+    ('6', '6 раз в 7 дней'),
+    ('7', '7 раз в 7 дней')
+)
 
 class Habit(models.Model):
-    objects = None
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    place = models.CharField(max_length=150, verbose_name='место')
-    time = models.TimeField(verbose_name='время')
-    action = models.CharField(max_length=300, verbose_name='действие')
-    pleasant_habit = models.BooleanField(verbose_name='признак приятной привычки')
-    related_habit = models.ForeignKey('self', on_delete=models.DO_NOTHING, verbose_name='связанная привычка',
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+                              on_delete=models.CASCADE,
+                              verbose_name='Пользователь', **NULLABLE)
+    place = models.CharField(max_length=50, verbose_name='Место')
+    time_start = models.TimeField(verbose_name='Время выполнения привычки')
+    action = models.CharField(max_length=150, verbose_name='Действие')
+    is_pleasant = models.BooleanField(default=False,
+                                      verbose_name='Приятная привычка')
+    related_habit = models.ForeignKey('self', on_delete=models.CASCADE,
+                                      verbose_name='Связанная привычка',
                                       **NULLABLE)
-    frequency = models.CharField(choices=PERIOD, verbose_name='периодичность')
-    award = models.CharField(max_length=350, verbose_name='вознаграждение', **NULLABLE)
-    time_to_complete = models.PositiveIntegerField(verbose_name='время на выполнение')
-    is_published = models.BooleanField(default=False, verbose_name='признак публикации')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.period = None
+    periodicity = models.CharField(max_length=10, choices=PERIODICITY_CHOICES,
+                                   default=1,
+                                   verbose_name='Cколько раз в неделю',
+                                   **NULLABLE)
+    reward = models.CharField(max_length=100, verbose_name='Вознаграждение',
+                              **NULLABLE)
+    time_complete = models.IntegerField(
+        verbose_name='Время на выполнение в сек')
+    is_published = models.BooleanField(default=False,
+                                       verbose_name='Опубликована',
+                                       **NULLABLE)
 
     def __str__(self):
-        return f'{self.action} в {self.time} в {self.place}'
+        return f'{self.action} в {self.time_start} в {self.place}'
 
     class Meta:
-        verbose_name = 'полезная привычка'
-        verbose_name_plural = 'полезные привычки'
+        verbose_name = 'привычка'
+        verbose_name_plural = 'привычки'
