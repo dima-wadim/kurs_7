@@ -1,6 +1,7 @@
-# Курсовой проект
-![img_1.png](img_1.png)
-Контекст
+# <img src="https://www.svgrepo.com/show/303231/docker-logo.svg" width="89"/>
+
+## Курсовой проект Docker"
+# Контекст
 В 2018 году Джеймс Клир написал книгу «Атомные привычки»,
 которая посвящена приобретению новых полезных привычек и
 искоренению старых плохих привычек. 
@@ -9,18 +10,38 @@
 пользователям об их привычках.
 Приложение позволяет пользователю создавать привычки и получать 
 напоминание в мессенджере Telegram о необходимости выполнения
+#### Проект модуля 8 реализовать запуск проекта [Django REST framework "Сервис Atomic Habits"](https://git@github.com:dima-wadim/kurs_7.git)
+***
+#### Реализованы задачи:
+* Для разных сервисов созданы отдельные контейнеры (django, postgresql, redis, celery).
+* Всё оформлено в файле docker-compose и Dockerfiles.
+* Проект готов на размещение на удаленном сервере: 
+  * можно запустить по инструкции, приложенной в Readme-файл;
+  * для запуска не требуется дополнительных настроек.
 
-# Работа с проектом
-Настройки проекта:
-1. Активировать виртуальное окружение venv/bin/activate.bat 
-2. Установить в зависимости от проекта, ответив в файле
-requirements.txt pip install -r requirements.txt
-3. Установка и запуск Redis 
-4. Создать базу данных в PostreSQL CREATE DATABASE kurs_7
-5. Применить миграцию 
-6. Запустить сервер python manage.py runserver 
-7. Запустить Celery 
-celery -A config worker -l INFO celery -A config Beat -l info -S django
+***
+### Прежде чем начать использовать проект нужно:
+* Установить на ПК пакет docker и docker-compose
+* Создать файл `.env` для переменного окружения.
+
+### `.env`
+    ALLOWED_HOSTS=*
+    LANGUAGE_CODE=ru
+    TIME_ZONE=Europe/Moscow
+    POSTGRES_DB=<DATABASES_NAME>
+    POSTGRES_USER=<DATABASES_USER>
+    POSTGRES_PASSWORD=<DATABASES_PASSWORD>
+    DATABASES_HOST=db
+    TG_API_KEY=<TG_API_KEY>
+    CELERY=redis://redis:6379
+
+***
+### Запуск Docker проекта
+    git clone https://git@github.com:dima-wadim/kurs_7.git
+    cd kurs_7
+    vi .env
+    docker-compose build
+    docker-compose up
 
 Модели 
 В книге хороший пример привычки описывается как конкретное действие, 
